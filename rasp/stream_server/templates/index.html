@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>Sorting Production Line</title>
+  </head>
+  <style>
+    table {
+        table-layout: auto;
+        border-collapse: collapse;
+    }
+    table td, tr, th {
+        border: 1px solid black;
+    }
+  </style>
+  <body>
+    <table width = "760" align="center">
+      <tr>
+        <h1 align="center" style="height: 15;">Sorting Production Line</h1>
+      </tr>
+      <tr>
+        <th valign="center">
+          <input style="text-align:center;width:180;height:120;" type="button" id="startBtn" Value="OFF" onclick="onStartStop()">
+          <div>Conveyor Motor Value: </div>
+          <input type="number" id="pwm" name="pwm" min="250" max="1024" Value="360" onchange="pwmChange()">
+        </th>
+        <th>
+          <img src="{{ url_for('video_feed') }}">
+        </th>
+      </tr>
+    </table>
+    <script>
+    var mode = "/OFF";
+    function onStartStop()
+    {
+      var btn = document.getElementById("startBtn");
+      
+      if (btn.value=="OFF") 
+      {
+        frm = 0;
+        btn.value = "RUNNING...";
+        mode = "/RUN";
+      }
+      else 
+      {
+        btn.value = "OFF";
+        mode = "/OFF";
+      }
+      
+      var url=mode;
+      var xhr = new XMLHttpRequest();
+      //xhr.onreadystatechange=ProcessResponse;
+      xhr.open("GET",url, true);
+      xhr.overrideMimeType('text/plain; charset=x-user-defined');
+      xhr.send(null);
+      xhr.onreadystatechange = function() {
+      if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+          
+        }
+      }
+    }
+
+    function pwmChange(){
+      var pwm = document.getElementById("pwm");
+      var pwmValue = pwm.value;
+
+      url = "/PWM?"+"val="+pwmValue.toString();
+
+      var xhr = new XMLHttpRequest();
+      //xhr.onreadystatechange=ProcessResponse;
+      xhr.open("GET",url, true);
+      xhr.overrideMimeType('text/plain; charset=x-user-defined');
+      xhr.send(null);
+      xhr.onreadystatechange = function() {
+      if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+          
+        }
+      }
+    }
+    </script>
+  </body>
+</html>
