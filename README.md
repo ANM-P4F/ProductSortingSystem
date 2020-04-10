@@ -7,3 +7,5 @@
 
 ## Description
 
+Please take a look in below link for a brief description:
+https://www.instructables.com/id/Simple-Product-Sorting-System-With-Raspberry-Pi-an/
